@@ -190,6 +190,17 @@
     </section>
     {{-- Help Others End Section --}}
 
+    {{-- CTA Section --}}
+    <section class="container min-h-372px d-flex flex-column align-items-center justify-content-center">
+        <h2>Ready to Contribue?</h2>
+        <p class="mb-4"> Want to make a big impact?</p>
+        <div class="text-center">
+            <a href="" class="btn btn-primary me-2 mb-2 mb-lg-0">Sign Up</a>
+            <a href="" class="btn btn-secondary mb-2 mb-lg-0">Join Discussions</a>
+        </div>
+    </section>
+    {{-- CTA End Section --}}
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </body>
 
