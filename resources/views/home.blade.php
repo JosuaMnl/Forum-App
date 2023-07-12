@@ -55,7 +55,7 @@
         </div>
     </nav>
 
-    {{-- Hero --}}
+    {{-- Hero Section --}}
     <section class="container hero">
         <div class="row align-items-center h-100">
             <div class="col-12 col-lg-6">
@@ -69,6 +69,30 @@
             </div>
         </div>
     </section>
+    {{-- End Hero Section --}}
+
+    {{-- Page Promotion Stats Section --}}
+    <section class="container min-h-372px">
+        <div class="row">
+            <div class="col-12 col-lg-4 text-center">
+                <img class="promote-icon mb-2" src="{{ asset('assets/images/discussions-icon.png') }}"
+                    alt="Discussions">
+                <h2>Discussions</h2>
+                <p class="fs-3">3232</p>
+            </div>
+            <div class="col-12 col-lg-4 text-center">
+                <img class="promote-icon mb-2" src="{{ asset('assets/images/answers-icon.png') }}" alt="Answers">
+                <h2>Answers</h2>
+                <p class="fs-3">2132423</p>
+            </div>
+            <div class="col-12 col-lg-4 text-center">
+                <img class="promote-icon mb-2" src="{{ asset('assets/images/users-icon.png') }}" alt="Users">
+                <h2>Users</h2>
+                <p class="fs-3">32241</p>
+            </div>
+        </div>
+    </section>
+    {{-- End Page Promotion Stats Section --}}
 
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 </body>
