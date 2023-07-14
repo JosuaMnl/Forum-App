@@ -9,7 +9,7 @@
                         <img src="{{ asset('assets/images/footer-logo.png') }}" alt="Logo">
                     </a>
                     <div class="card mb-5">
-                        <div action="" method="post">
+                        <form action="" method="post">
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
                                 <input type="email" class="form-control" id="email" placeholder="name@example.com"
@@ -22,7 +22,6 @@
                             <div class="mb-3 d-grid">
                                 <button type="submit" class="btn btn-primary rounded-2">Log In</button>
                             </div>
-                        </div>
                         </form>
                     </div>
                     <div class="text-center">
