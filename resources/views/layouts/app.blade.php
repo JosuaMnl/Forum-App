@@ -9,6 +9,9 @@
     {{-- Navbar --}}
     @include('partials.nav')
 
+    {{-- Alert --}}
+    @include('partials.alert')
+
     {{-- Content --}}
     @yield('body')
 
