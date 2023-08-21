@@ -25,7 +25,7 @@
                         </form>
                     </div>
                     <div class="text-center">
-                        Don't have an account? <a href="">
+                        Don't have an account? <a href="{{ route('auth.sign-up.show') }}">
                             <u>Sign Up</u>
                         </a>
                     </div>

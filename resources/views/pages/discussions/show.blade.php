@@ -151,8 +151,9 @@
                     </div>
 
                     <div class="fw-bold text-center">
-                        Please <a class="text-primary" href="">sign in</a> or <a class="text-primary"
-                            href="">create an account</a> to participate in this discussion.
+                        Please <a class="text-primary" href="{{ route('auth.login.show') }}">sign in</a> or <a
+                            class="text-primary" href="{{ route('auth.sign-up.show') }}">create an account</a> to
+                        participate in this discussion.
                     </div>
                 </div>
 

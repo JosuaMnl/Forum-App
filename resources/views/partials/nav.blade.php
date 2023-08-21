@@ -10,13 +10,16 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mx-0 mx-lg-3">
                 <li class="nav-item d-block d-lg-none d-xl-block">
-                    <a class="nav-link active" aria-current="page" href="{{ route('home') }}">Home</a>
+                    <a class="nav-link {{ Route::currentRouteName() === 'home' ? 'active' : '' }}" aria-current="page"
+                        href="{{ route('home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" aria-current="page" href="#">Discussions</a>
+                    <a class="nav-link {{ Route::currentRouteName() === 'discussions.index' ? 'active' : '' }}"
+                        aria-current="page" href="{{ route('discussions.index') }}">Discussions</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-nowrap" aria-current="page" href="#">About Us</a>
+                    <a class="nav-link text-nowrap {{ Route::currentRouteName() === '' ? 'active' : '' }}"
+                        aria-current="page" href="#">About Us</a>
                 </li>
 
             </ul>
@@ -31,10 +34,12 @@
             </form>
             <ul class="navbar-nav ms-auto my-2 my-lg-0">
                 <li class="nav-item my-auto">
-                    <a class="nav-link text-nowrap" aria-current="page" href="#">Log In</a>
+                    <a class="nav-link text-nowrap {{ Route::currentRouteName() === 'auth.login.show' ? 'active' : '' }}"
+                        aria-current="page" href="{{ route('auth.login.show') }}">Log In</a>
                 </li>
                 <li class="nav-item ps-1 pe-0">
-                    <a class="btn btn-primary-white" aria-current="page" href="#">Sign Up</a>
+                    <a class="btn btn-primary-white" aria-current="page" href="{{ route('auth.sign-up.show') }}">Sign
+                        Up</a>
                 </li>
             </ul>
         </div>
