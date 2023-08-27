@@ -24,20 +24,27 @@
                         <img src="{{ asset('assets/images/footer-logo.png') }}" alt="Logo" class="h-32px">
                     </a>
                     <div class="card mb-5">
-                        <form action="" method="post">
+                        <form action="{{ route('auth.sign-up.sign-up') }}" method="POST">
+                            @csrf
                             <div class="mb-3">
                                 <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" placeholder="name123"
+                                <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                    id="username" name="username" value="{{ old('username') }}" placeholder="name123"
                                     autocomplete="off" autofocus>
+                                @error('username')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div class="mb-3">
                                 <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" placeholder="name@example.com"
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                    id="email" name="email" value="{{ old('email') }}" placeholder="name@example.com"
                                     autocomplete="off">
                             </div>
                             <div class="mb-3">
                                 <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" placeholder="****************">
+                                <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                    id="password" name="password" placeholder="****************">
                             </div>
                             <div class="mb-3 d-grid">
                                 <button type="submit" class="btn btn-primary rounded-2">Sign Up</button>
