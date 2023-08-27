@@ -21,6 +21,7 @@
     {{-- Script --}}
     @yield('before-script')
     @include('partials.script')
+    @yield('alert-script')
     @yield('after-script')
 </body>
 
