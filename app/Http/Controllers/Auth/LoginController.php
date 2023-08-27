@@ -26,4 +26,10 @@ class LoginController extends Controller
             'credentials' => 'The email or password is incorrect.'
         ]);
     }
+
+    public function logout() {
+        auth()->logout();
+
+        return redirect()->route('home');
+    }
 }
