@@ -157,7 +157,7 @@
                     @auth
                         <h3 class="mb-5">Your Answer</h3>
                         <div class="card card-discussions">
-                            <form action="" method="POST">
+                            <form action="{{ route('discussions.answer.store', $discussion->slug) }}" method="POST">
                                 @csrf
                                 <div class="mb-3">
                                     <textarea name="answer" id="answer">{{ old('answer') }}</textarea>
