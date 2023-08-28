@@ -13,13 +13,19 @@ class DiscussionController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $disussions = Discussion::with('user', 'category');
+        $discussions = Discussion::with('user', 'category');
+
+        if ($request->search) {
+            $discussions->where('title', 'like', "%$request->search%")
+                ->orWhere('content', 'like', "%$request->search%");
+        }
 
         return response()->view('pages.discussions.index', [
-            'discussions' => $disussions->orderBy('created_at', 'desc')->paginate(10),
+            'discussions' => $discussions->orderBy('created_at', 'desc')->paginate(10)->withQueryString(),
             'categories' => Category::all(),
+            'search' => $request->search,
         ]);
     }
 
