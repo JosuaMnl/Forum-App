@@ -154,6 +154,21 @@
                         </div>
                     </div>
 
+                    @auth
+                        <h3 class="mb-5">Your Answer</h3>
+                        <div class="card card-discussions">
+                            <form action="" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <textarea name="answer" id="answer">{{ old('answer') }}</textarea>
+                                </div>
+                                <div>
+                                    <button class="btn btn-primary me-4">Submit</button>
+                                </div>
+                            </form>
+                        </div>
+                    @endauth
+
                     @guest
                         <div class="fw-bold text-center">
                             Please <a class="text-primary" href="{{ route('auth.login.show') }}">sign in</a> or <a
@@ -190,6 +205,23 @@
                 navigator.clipboard.writeText(copyText.val());
                 alert('Link to this discussion copied successfully!', 'success')
             })
+
+            $('#answer').summernote({
+                placeholder: 'Write your solution here...',
+                tabSize: 2,
+                height: 320,
+                toolbar: [
+                    ['style', ['style']],
+                    ['font', ['bold', 'underline', 'clear']],
+                    ['color', ['color']],
+                    ['para', ['ul', 'ol', 'paragraph']],
+                    ['table', ['table']],
+                    ['insert', ['link', 'picture', 'video']],
+                    ['view', ['fullscreen', 'codeview', 'help']]
+                ]
+            });
+
+            $('span.note-icon-caret').remove();
 
             $('#discussion-like').click(function() {
                 var isLiked = $(this).data('liked');
