@@ -26,9 +26,9 @@
                             </div>
 
                             <div class="col-11">
-                                <p>
+                                <div>
                                     {!! $discussion->content !!}
-                                </p>
+                                </div>
                                 <div class="mb-3">
                                     <a href="{{ route('discussions.categories.show', $discussion->category->slug) }}"><span
                                             class="badge rounded-pill text-bg-light">{{ $discussion->category->name }}</span></a>
@@ -95,9 +95,9 @@
                                         <span class="fs-4 color-gray mb-1">12</span>
                                     </div>
                                     <div class="col-11">
-                                        <p>
+                                        <div>
                                             {!! $answer->answer !!}
-                                        </p>
+                                        </div>
                                         <div class="row align-items-end justify-content-end">
                                             <div class="col-5 col-lg-3 d-flex">
                                                 <a class="card-discussions-show-avatar-wrapper flex-shrink-0 rounded-circle overflow-hidden me-1"
