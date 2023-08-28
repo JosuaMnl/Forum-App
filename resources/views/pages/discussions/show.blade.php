@@ -79,79 +79,56 @@
                         </div>
                     </div>
 
-                    <h3 class="mb-5">Answers</h3>
-                    <div class="mb-5">
-                        <div class="card card-discussions">
-                            <div class="row">
-                                <div class="col-1 d-flex flex-column justify-content-start align-items-center">
-                                    <a href="">
-                                        <img src="{{ asset('assets/images/icon-like.png') }}" alt="Like"
-                                            class="like-icon mb-1">
-                                    </a>
-                                    <span class="fs-4 color-gray mb-1">12</span>
-                                </div>
-                                <div class="col-11">
-                                    <p>
-                                        lorem ipsum dolor sit amet contecstur lorem ipsum dolor sit amet contecsturlorem
-                                        ipsum dolor sit amet contecsturlorem ipsum dolor sit amet contecstur
-                                    </p>
-                                    <div class="row align-items-end justify-content-end">
-                                        <div class="col-5 col-lg-3 d-flex">
-                                            <a class="card-discussions-show-avatar-wrapper flex-shrink-0 rounded-circle overflow-hidden me-1"
-                                                href="">
-                                                <img src="{{ asset('assets/images/avatar-discussions.png') }}"
-                                                    alt="" class="avatar">
-                                            </a>
-                                            <div class="fs-12px lh-1">
-                                                <span class="text-primary">
-                                                    <a class="fw-bold d-flex align-items-start text-break mb-1"
-                                                        href="">
-                                                        dadangx
-                                                    </a>
-                                                </span>
-                                                <span class="color-gray">7 hours ago</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <h3 class="mb-5">
+                        {{ $discussion->answers->count() . ' ' . Str::plural('Answer', $discussion->answers->count()) }}
+                    </h3>
 
-                        <div class="card card-discussions">
-                            <div class="row">
-                                <div class="col-1 d-flex flex-column justify-content-start align-items-center">
-                                    <a href="">
-                                        <img src="{{ asset('assets/images/icon-like.png') }}" alt="Like"
-                                            class="like-icon mb-1">
-                                    </a>
-                                    <span class="fs-4 color-gray mb-1">12</span>
-                                </div>
-                                <div class="col-11">
-                                    <p>
-                                        lorem ipsum dolor sit amet contecstur lorem ipsum dolor sit amet contecsturlorem
-                                        ipsum dolor sit amet contecsturlorem ipsum dolor sit amet contecstur
-                                    </p>
-                                    <div class="row align-items-end justify-content-end">
-                                        <div class="col-5 col-lg-3 d-flex">
-                                            <a class="card-discussions-show-avatar-wrapper flex-shrink-0 rounded-circle overflow-hidden me-1"
-                                                href="">
-                                                <img src="{{ asset('assets/images/avatar-discussions.png') }}"
-                                                    alt="" class="avatar">
-                                            </a>
-                                            <div class="fs-12px lh-1">
-                                                <span class="text-primary">
-                                                    <a class="fw-bold d-flex align-items-start text-break mb-1"
-                                                        href="">
-                                                        dadangx
-                                                    </a>
-                                                </span>
-                                                <span class="color-gray">7 hours ago</span>
+                    <div class="mb-5">
+                        @forelse ($answers as $answer)
+                            <div class="card card-discussions">
+                                <div class="row">
+                                    <div class="col-1 d-flex flex-column justify-content-start align-items-center">
+                                        <a href="">
+                                            <img src="{{ asset('assets/images/icon-like.png') }}" alt="Like"
+                                                class="like-icon mb-1">
+                                        </a>
+                                        <span class="fs-4 color-gray mb-1">12</span>
+                                    </div>
+                                    <div class="col-11">
+                                        <p>
+                                            {!! $answer->answer !!}
+                                        </p>
+                                        <div class="row align-items-end justify-content-end">
+                                            <div class="col-5 col-lg-3 d-flex">
+                                                <a class="card-discussions-show-avatar-wrapper flex-shrink-0 rounded-circle overflow-hidden me-1"
+                                                    href="">
+                                                    <img src="{{ filter_var($answer->user->picture, FILTER_VALIDATE_URL) ? $answer->user->picture : Storage::url($answer->user->picture) }}"
+                                                        alt="{{ $answer->user->username }}" class="avatar">
+                                                </a>
+                                                <div class="fs-12px lh-1">
+                                                    <span
+                                                        class="{{ $answer->user->username === $discussion->user->username ? 'text-primary' : '' }}">
+                                                        <a class="fw-bold d-flex align-items-start text-break mb-1"
+                                                            href="{{ route('users.show', $answer->user->username) }}">
+                                                            {{ $answer->user->username }}
+                                                        </a>
+                                                    </span>
+                                                    <span
+                                                        class="color-gray">{{ $answer->created_at->diffForHumans() }}</span>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        @empty
+                            <div class="card card-dicussions">
+                                Currently no answer yet.
+                            </div>
+                        @endforelse
+
+                        {{-- Pagination Answers --}}
+                        {{ $answers->links() }}
                     </div>
 
                     @auth
