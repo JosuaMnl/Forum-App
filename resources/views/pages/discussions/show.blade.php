@@ -51,8 +51,8 @@
                                                 class="d-inline-block lh-1" method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <button class="btn color-gray p-0 lh-1" type="submit"
-                                                    id="delete-discussion">
+                                                <button class="btn btn-link text-decoration-none color-gray p-0 lh-1"
+                                                    type="submit" id="delete-discussion">
                                                     <small class="card-discussion-btn-delete">Delete</small>
                                                 </button>
                                             </form>
@@ -109,6 +109,16 @@
                                                             <small>Edit</small>
                                                         </a>
                                                     </span>
+                                                    <form action="{{ route('answers.destroy', $answer->id) }}"
+                                                        class="d-inline-block lh-1" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button
+                                                            class="delete-answer btn btn-link text-decoration-none color-gray p-0 lh-1"
+                                                            type="submit">
+                                                            <small class="card-discussion-btn-delete">Delete</small>
+                                                        </button>
+                                                    </form>
                                                 @endif
                                             </div>
                                             <div class="col-5 col-lg-3 d-flex">
@@ -241,6 +251,12 @@
 
             $('#delete-discussion').click(function(event) {
                 if (!confirm('Delete this discussion?')) {
+                    event.preventDefault();
+                }
+            });
+
+            $('.delete-answer').click(function(event) {
+                if (!confirm('Delete this answer?')) {
                     event.preventDefault();
                 }
             });
