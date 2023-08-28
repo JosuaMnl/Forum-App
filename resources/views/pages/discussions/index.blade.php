@@ -9,139 +9,76 @@
                         All Discussions
                     </h2>
                     <div>
-                        51,875 discussions
+                        {{ $discussions->total() . ' ' . Str::plural('Discussion', $discussions->total()) }}
                     </div>
                 </div>
-                <a class="btn btn-primary" href="">Create discussions</a>
+                @auth
+                    <a class="btn btn-primary" href="{{ route('discussions.create') }}">Create discussions</a>
+                @endauth
+                @guest
+                    <a class="btn btn-primary" href="{{ route('auth.login.show') }}">Log in to Create Discussions</a>
+                @endguest
             </div>
             <div class="row">
                 <div class="col-12 col-lg-8 mb-5 mb-lg-0">
-                    <div class="card card-discussions">
-                        <div class="row">
-                            <div class="col-12 col-lg-2 mb-1 mb-lg-0 d-flex flex-row flex-lg-column align-items-end">
-                                <div class="text-nowrap me-2 me-lg-0">
-                                    3 likes
-                                </div>
-                                <div class="text-nowrap color-gray">
-                                    9 answers
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-10">
-                                <a href="{{ route('discussions.show') }}">
-                                    <h3>How to add a custom validation in laravel?</h3>
-                                </a>
-                                <p>I am working on a blogging application in Laravel 8. There are 4 user roles, among which,
-                                    the "...</p>
-                                <div class="row">
-                                    <div class="col me-1 me-lg-2">
-                                        <a href="">
-                                            <span class="badge rounded-pill text-bg-light">Eloquent</span>
-                                        </a>
+                    @forelse ($discussions as $discussion)
+                        <div class="card card-discussions">
+                            <div class="row">
+                                <div class="col-12 col-lg-2 mb-1 mb-lg-0 d-flex flex-row flex-lg-column align-items-end">
+                                    <div class="text-nowrap me-2 me-lg-0">
+                                        3 likes
                                     </div>
-                                    <div class="col-5 col-lg-4">
-                                        <div class="avatar-sm-wrapper d-inline-block">
-                                            <a class="me-1" href="">
-                                                <img src="{{ asset('assets/images/avatar.png') }}" alt="Username"
-                                                    class="avatar rounded-circle">
+                                    <div class="text-nowrap color-gray">
+                                        9 answers
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-10">
+                                    <a href="{{ route('discussions.show', $discussion->slug) }}">
+                                        <h3>{{ $discussion->title }}</h3>
+                                    </a>
+                                    <p>{{ $discussion->content_preview }}</p>
+                                    <div class="row">
+                                        <div class="col me-1 me-lg-2">
+                                            <a href="#">
+                                                <span
+                                                    class="badge rounded-pill text-bg-light">{{ $discussion->category->name }}</span>
                                             </a>
                                         </div>
-                                        <span class="fs-12px">
-                                            <a class="me-1 fw-bold" href="">Username</a>
-                                            <span class="color-gray">7 hours ago</span>
-                                        </span>
+                                        <div class="col-5 col-lg-4">
+                                            <div class="avatar-sm-wrapper d-inline-block">
+                                                <a class="me-1"
+                                                    href="{{ route('users.show', $discussion->user->username) }}">
+                                                    <img src="{{ filter_var($discussion->user->picture, FILTER_VALIDATE_URL) ? $discussion->user->picture : Storage::url($discussion->user->picture) }}"
+                                                        alt="{{ $discussion->user->username }}"
+                                                        class="avatar rounded-circle">
+                                                </a>
+                                            </div>
+                                            <span class="fs-12px">
+                                                <a class="me-1 fw-bold"
+                                                    href="{{ route('users.show', $discussion->user->username) }}">{{ $discussion->user->username }}</a>
+                                                <span
+                                                    class="color-gray">{{ $discussion->created_at->diffForHumans() }}</span>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card card-discussions">
-                        <div class="row">
-                            <div class="col-12 col-lg-2 mb-1 mb-lg-0 d-flex flex-row flex-lg-column align-items-end">
-                                <div class="text-nowrap me-2 me-lg-0">
-                                    3 likes
-                                </div>
-                                <div class="text-nowrap color-gray">
-                                    9 answers
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-10">
-                                <a href="">
-                                    <h3>How to add a custom validation in laravel?</h3>
-                                </a>
-                                <p>I am working on a blogging application in Laravel 8. There are 4 user roles, among which,
-                                    the "...</p>
-                                <div class="row">
-                                    <div class="col me-1 me-lg-2">
-                                        <a href="">
-                                            <span class="badge rounded-pill text-bg-light">Eloquent</span>
-                                        </a>
-                                    </div>
-                                    <div class="col-5 col-lg-4">
-                                        <div class="avatar-sm-wrapper d-inline-block">
-                                            <a class="me-1" href="">
-                                                <img src="{{ asset('assets/images/avatar.png') }}" alt="Username"
-                                                    class="avatar rounded-circle">
-                                            </a>
-                                        </div>
-                                        <span class="fs-12px">
-                                            <a class="me-1 fw-bold" href="">Username</a>
-                                            <span class="color-gray">7 hours ago</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
+                    @empty
+                        <div class="card card-discussions">
+                            Currently, there are no discussions.
                         </div>
-                    </div>
-                    <div class="card card-discussions">
-                        <div class="row">
-                            <div class="col-12 col-lg-2 mb-1 mb-lg-0 d-flex flex-row flex-lg-column align-items-end">
-                                <div class="text-nowrap me-2 me-lg-0">
-                                    3 likes
-                                </div>
-                                <div class="text-nowrap color-gray">
-                                    9 answers
-                                </div>
-                            </div>
-                            <div class="col-12 col-lg-10">
-                                <a href="">
-                                    <h3>How to add a custom validation in laravel?</h3>
-                                </a>
-                                <p>I am working on a blogging application in Laravel 8. There are 4 user roles, among which,
-                                    the "...</p>
-                                <div class="row">
-                                    <div class="col me-1 me-lg-2">
-                                        <a href="">
-                                            <span class="badge rounded-pill text-bg-light">Eloquent</span>
-                                        </a>
-                                    </div>
-                                    <div class="col-5 col-lg-4">
-                                        <div class="avatar-sm-wrapper d-inline-block">
-                                            <a class="me-1" href="">
-                                                <img src="{{ asset('assets/images/avatar.png') }}" alt="Username"
-                                                    class="avatar rounded-circle">
-                                            </a>
-                                        </div>
-                                        <span class="fs-12px">
-                                            <a class="me-1 fw-bold" href="">Username</a>
-                                            <span class="color-gray">7 hours ago</span>
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforelse
                 </div>
                 <div class="col-12 col-lg-4">
                     <div class="card">
                         <h3>All categories</h3>
                         <div>
-                            <a href="">
-                                <span class="badge rounded-pill text-bg-light">Eloquent</span>
-                                <span class="badge rounded-pill text-bg-light">Facade</span>
-                                <span class="badge rounded-pill text-bg-light">Helper</span>
-                                <span class="badge rounded-pill text-bg-light">Models</span>
-                                <span class="badge rounded-pill text-bg-light">Controller</span>
-                            </a>
+                            @foreach ($categories as $category)
+                                <a href="">
+                                    <span class="badge rounded-pill text-bg-light">{{ $category->name }}</span>
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>

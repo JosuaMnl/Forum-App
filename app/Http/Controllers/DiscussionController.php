@@ -15,7 +15,12 @@ class DiscussionController extends Controller
      */
     public function index()
     {
-        //
+        $disussions = Discussion::with('user', 'category');
+
+        return response()->view('pages.discussions.index', [
+            'discussions' => $disussions->orderBy('created_at', 'desc')->paginate(10),
+            'categories' => Category::all(),
+        ]);
     }
 
     /**
@@ -33,18 +38,6 @@ class DiscussionController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        // Get data from request that has already been validated.
-        // Get data category according to slug category
-        // Get category id
-        // Insert user_id to category array validated
-        // Insert slug + timestamp according to title to category array validated
-        // Make content preview (clean content from html tag)
-        // Check content character is more than 120 and insert to content preview + '...'
-        // If not, insert content preview without '...'
-        // Insert detail question to discussion table
-        // If successful, then make notification success and redirect to list discussion
-        // If not, return 500
-
         $validated = $request->validated();
         $categoryId = Category::where('slug', $validated['category_slug'])->first()->id;
 
