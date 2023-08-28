@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\DiscussionController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,6 +28,8 @@ Route::middleware('auth')->group(function () {
         Route::post('discussions/{discussion}/answer', 'AnswerController@store')
             ->name('discussions.answer.store');
 
+        Route::resource('answers', AnswerController::class)
+            ->only(['edit', 'update', 'destroy']);
         Route::post('answers/{answer}/like', 'LikeController@answerLike')
             ->name('answers.like.like');
         Route::post('answers/{answer}/unlike', 'LikeController@answerUnlike')
@@ -50,10 +53,6 @@ Route::namespace('App\Http\Controllers\Auth')->group(function() {
     Route::get('/sign-up', 'SignUpController@show')->name('auth.sign-up.show');
     Route::post('/sign-up', 'SignUpController@signUp')->name('auth.sign-up.sign-up');
 });
-
-Route::get('/answers/1', function () {
-    return view('pages.answers.form');
-})->name('answers.edit');
 
 Route::get('/users/josuamnl', function () {
     return view('pages.users.show');
