@@ -17,11 +17,12 @@
                     <div class="card card-discussions mb-5">
                         <div class="row">
                             <div class="col-1 d-flex flex-column justify-content-start align-items-center">
-                                <a href="">
-                                    <img class="like-icon mb-1" src="{{ asset('assets/images/icon-like.png') }}"
-                                        alt="Like">
+                                <a id="discussion-like" href="javascript:;" data-liked="{{ $discussion->liked() }}">
+                                    <img id="discussion-like-icon" class="like-icon mb-1"
+                                        src="{{ $discussion->liked() ? $likedIcon : $notLikedIcon }}" alt="Like">
                                 </a>
-                                <span class="fs-4 color-gray mb-1">12</span>
+                                <span id="discussion-like-count"
+                                    class="fs-4 color-gray mb-1">{{ $discussion->likeCount }}</span>
                             </div>
 
                             <div class="col-11">
@@ -172,6 +173,33 @@
                 navigator.clipboard.writeText(copyText.val());
                 alert('Link to this discussion copied successfully!', 'success')
             })
+
+            $('#discussion-like').click(function() {
+                var isLiked = $(this).data('liked');
+                var likeRoute = isLiked ? "{{ route('discussions.like.unlike', $discussion->slug) }}" :
+                    "{{ route('discussions.like.like', $discussion->slug) }}";
+
+                $.ajax({
+                        method: 'POST',
+                        url: likeRoute,
+                        data: {
+                            '_token': '{{ csrf_token() }}'
+                        }
+                    })
+                    .done(function(res) {
+                        if (res.status === 'success') {
+                            $('#discussion-like-count').text(res.data.likeCount);
+
+                            if (isLiked) {
+                                $('#discussion-like-icon').attr('src', '{{ $notLikedIcon }}');
+                            } else {
+                                $('#discussion-like-icon').attr('src', '{{ $likedIcon }}');
+                            }
+
+                            $('#discussion-like').data('liked', !isLiked);
+                        }
+                    });
+            });
         })
     </script>
 @endsection

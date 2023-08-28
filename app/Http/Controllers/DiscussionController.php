@@ -74,9 +74,14 @@ class DiscussionController extends Controller
     {
         $discussion = Discussion::with(['user', 'category'])->where('slug', $slug)->first();
 
+        $notLikedIcon = asset('assets/images/icon-like.png');
+        $likedIcon = asset('assets/images/icon-liked.png');
+
         return response()->view('pages.discussions.show', [
             'discussion' => $discussion,
             'categories' => Category::all(),
+            'likedIcon' => $likedIcon,
+            'notLikedIcon' => $notLikedIcon,
         ]);
     }
 
