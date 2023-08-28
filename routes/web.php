@@ -18,6 +18,7 @@ Route::middleware('auth')->group(function () {
     Route::namespace('App\Http\Controllers')->group(function() {
         Route::resource('discussions', DiscussionController::class)
             ->only(['create', 'store', 'edit', 'update', 'destroy']);
+
         Route::post('discussions/{discussion}/like', 'LikeController@discussionLike')
             ->name('discussions.like.like');
         Route::post('discussions/{discussion}/unlike', 'LikeController@discussionUnlike')
@@ -25,6 +26,11 @@ Route::middleware('auth')->group(function () {
 
         Route::post('discussions/{discussion}/answer', 'AnswerController@store')
             ->name('discussions.answer.store');
+
+        Route::post('answers/{answer}/like', 'LikeController@answerLike')
+            ->name('answers.like.like');
+        Route::post('answers/{answer}/unlike', 'LikeController@answerUnlike')
+            ->name('answers.like.unlike');
     });
 });
 
