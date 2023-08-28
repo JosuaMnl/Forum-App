@@ -9,7 +9,7 @@
                         <div class="fs-2 fw-bold color-gray me-2 mb-0">Discussions</div>
                         <div class="fs-2 fw-bold color-gray me-2 mb-0">></div>
                     </div>
-                    <h2 class="mb-0">How to add a custom validation in laravel?</h2>
+                    <h2 class="mb-0">{{ $discussion->title }}</h2>
                 </div>
             </div>
             <div class="row">
@@ -26,48 +26,34 @@
 
                             <div class="col-11">
                                 <p>
-                                    I am working on a blogging application in Laravel 8. There are 4 user roles, among
-                                    which, the I am working on a blogging application in Laravel 8. There are 4 user roles,
-                                    among which, the I am working on a blogging application in Laravel 8. There are 4 user
-                                    roles, among which, the I am working on a blogging application in Laravel 8. There are 4
-                                    user roles, among which, the I am working on a blogging application in Laravel 8. There
-                                    are 4 user roles, among
-                                    which, the I am working on a blogging application in Laravel 8. There are 4 user roles,
-                                    among
-                                    which, the I am working on a blogging application in Laravel 8. There are 4 user roles,
-                                    among
-                                    which, the I am working on a blogging application in Laravel 8. There are 4 user roles,
-                                    among
-                                    which, the I am working on a blogging application in Laravel 8. There are 4 user roles,
-                                    among
-                                    which, the I am working on a blogging application in Laravel 8. There are 4 user roles,
-                                    among
-                                    which, the
+                                    {!! $discussion->content !!}
                                 </p>
                                 <div class="mb-3">
-                                    <a href=""><span class="badge rounded-pill text-bg-light">Eloquent</span></a>
+                                    <a href="{{ route('discussions.categories.show', $discussion->category->slug) }}"><span
+                                            class="badge rounded-pill text-bg-light">{{ $discussion->category->name }}</span></a>
                                 </div>
                                 <div class="row align-items-start justify-content-between">
                                     <div class="col">
                                         <span class="color-gray me-2">
                                             <a href="javascript:;" id="share-discussion"><small>Share</small></a>
-                                            <input type="text" value="{{ url('discussions/lorem') }}" id="current-url"
+                                            <input type="text" value="{{ request()->url() }}" id="current-url"
                                                 class="d-none">
                                         </span>
                                     </div>
                                     <div class="col-5 col-lg-3 d-flex">
                                         <a class="card-discussions-show-avatar-wrapper flex-shrink-0 rounded-circle overflow-hidden me-1"
-                                            href="">
-                                            <img src="{{ asset('assets/images/avatar-discussions.png') }}" alt=""
-                                                class="avatar">
+                                            href="{{ route('users.show') }}">
+                                            <img src="{{ filter_var($discussion->user->picture, FILTER_VALIDATE_URL) ? $discussion->user->picture : Storage::url($discussion->user->picture) }}"
+                                                alt="{{ $discussion->user->username }}" class="avatar">
                                         </a>
                                         <div class="fs-12px lh-1">
                                             <span class="text-primary">
-                                                <a class="fw-bold d-flex align-items-start text-break mb-1" href="">
-                                                    JosuaMnl
+                                                <a class="fw-bold d-flex align-items-start text-break mb-1"
+                                                    href="{{ route('users.show') }}">
+                                                    {{ $discussion->user->username }}
                                                 </a>
                                             </span>
-                                            <span class="color-gray">7 hours ago</span>
+                                            <span class="color-gray">{{ $discussion->created_at->diffForHumans() }}</span>
                                         </div>
                                     </div>
                                 </div>
@@ -150,24 +136,24 @@
                         </div>
                     </div>
 
-                    <div class="fw-bold text-center">
-                        Please <a class="text-primary" href="{{ route('auth.login.show') }}">sign in</a> or <a
-                            class="text-primary" href="{{ route('auth.sign-up.show') }}">create an account</a> to
-                        participate in this discussion.
-                    </div>
+                    @guest
+                        <div class="fw-bold text-center">
+                            Please <a class="text-primary" href="{{ route('auth.login.show') }}">sign in</a> or <a
+                                class="text-primary" href="{{ route('auth.sign-up.show') }}">create an account</a> to
+                            participate in this discussion.
+                        </div>
+                    @endguest
                 </div>
 
                 <div class="col-12 col-lg-4">
                     <div class="card">
                         <h3>All categories</h3>
                         <div>
-                            <a href="">
-                                <span class="badge rounded-pill text-bg-light">Eloquent</span>
-                                <span class="badge rounded-pill text-bg-light">Facade</span>
-                                <span class="badge rounded-pill text-bg-light">Helper</span>
-                                <span class="badge rounded-pill text-bg-light">Models</span>
-                                <span class="badge rounded-pill text-bg-light">Controller</span>
-                            </a>
+                            @foreach ($categories as $category)
+                                <a href="{{ route('discussions.categories.show', $category->slug) }}">
+                                    <span class="badge rounded-pill text-bg-light">{{ $category->name }}</span>
+                                </a>
+                            @endforeach
                         </div>
                     </div>
                 </div>
