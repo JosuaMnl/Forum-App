@@ -5,41 +5,58 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 col-lg-5">
-                    <form action="">
+                    <form action="{{ route('users.update', $user->username) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
                         <div class="d-flex flex-column flex-md-row mb-4">
                             <div class="edit-avatar-wrapper mb-3 mb-md-0 mx-auto mx-md-0">
                                 <div class="avatar-wrapper rounded-circle overflow-hidden flex-shrink-0 me-4">
-                                    <img src="{{ asset('assets/images/avatar-white.png') }}" alt="Avatar Profile"
-                                        id="avatar" class="avatar">
+                                    <img src="{{ $picture }}" alt="Avatar Profile" id="avatar" class="avatar">
                                 </div>
                                 <label for="picture" class="btn p-0 edit-avatar-show">
                                     <img src="{{ asset('assets/images/edit-circle.png') }}" alt="Edit Circle">
                                 </label>
                                 <input type="file" class="d-none" id="picture" name="picture" accept="image/*">
+                                @error('picture')
+                                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                                @enderror
                             </div>
                             <div>
                                 <div class="mb-3">
                                     <label for="usename" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="username" name="username" autofocus>
+                                    <input type="text" class="form-control @error('username') is-invalid @enderror"
+                                        id="username" name="username" value="{{ old('username', $user->username) }}"
+                                        autofocus>
+                                    @error('username')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
                                     <label for="password" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="password" name="password">
+                                    <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                        id="password" name="password">
                                     <div class="fs-12px color-gray">
                                         Empty this if you don't want to change your password
                                     </div>
+                                    @error('password')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div class="mb-3">
-                                    <label for="confirm-password" class="form-label">Confirm Password</label>
-                                    <input type="password" class="form-control" id="confirm-password"
-                                        name="confirm-password">
+                                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                    <input type="password"
+                                        class="form-control @error('password_confirmation') is-invalid @enderror"
+                                        id="password_confirmation" name="password_confirmation">
                                     <div class="fs-12px color-gray">
                                         Empty this if you don't want to change your password
                                     </div>
+                                    @error('password_confirmation')
+                                        <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
                                 </div>
                                 <div>
                                     <button class="btn btn-primary me-4" type="submit">Save</button>
-                                    <a href="">Cancel</a>
+                                    <a href="{{ route('users.show', $user->username) }}">Cancel</a>
                                 </div>
                             </div>
                         </div>

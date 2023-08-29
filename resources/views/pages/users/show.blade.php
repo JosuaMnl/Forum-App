@@ -23,6 +23,11 @@
                     <div>
                         <input type="text" id="current-url" class="d-none" value="{{ request()->url() }}">
                         <a id="share-profile" href="javascript:;" class="btn btn-primary me-4">Share</a>
+                        @auth
+                            @if ($user->id === auth()->id())
+                                <a href="{{ route('users.edit', $user->username) }}">Edit Profile</a>
+                            @endif
+                        @endauth
                     </div>
                 </div>
                 <div class="col-12 col-lg-8">
@@ -124,7 +129,7 @@
                 copyText[0].select();
                 copyText[0].setSelectionRange(0, 99999);
                 navigator.clipboard.writeText(copyText.val());
-                alert('Link to this page copied successfully!', 'success')
+                alert('Link to this profile copied successfully!', 'success')
             })
         })
     </script>
