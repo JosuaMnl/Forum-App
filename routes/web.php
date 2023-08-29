@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AnswerController;
 use App\Http\Controllers\DiscussionController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -54,10 +55,6 @@ Route::namespace('App\Http\Controllers\Auth')->group(function() {
     Route::post('/sign-up', 'SignUpController@signUp')->name('auth.sign-up.sign-up');
 });
 
-Route::get('/users/josuamnl', function () {
-    return view('pages.users.show');
-})->name('users.show');
-
-Route::get('/users/josuamnl/edit', function () {
-    return view('pages.users.form');
-})->name('users.edit');
+Route::namespace('App\Http\Controllers\User')->group(function () {
+    Route::resource('users', UserController::class)->only(['show']);
+});

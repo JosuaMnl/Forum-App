@@ -60,14 +60,14 @@
                                     </div>
                                     <div class="col-5 col-lg-3 d-flex">
                                         <a class="card-discussions-show-avatar-wrapper flex-shrink-0 rounded-circle overflow-hidden me-1"
-                                            href="{{ route('users.show') }}">
+                                            href="{{ route('users.show', $discussion->user->username) }}">
                                             <img src="{{ filter_var($discussion->user->picture, FILTER_VALIDATE_URL) ? $discussion->user->picture : Storage::url($discussion->user->picture) }}"
                                                 alt="{{ $discussion->user->username }}" class="avatar">
                                         </a>
                                         <div class="fs-12px lh-1">
                                             <span class="text-primary">
                                                 <a class="fw-bold d-flex align-items-start text-break mb-1"
-                                                    href="{{ route('users.show') }}">
+                                                    href="{{ route('users.show', $discussion->user->username) }}">
                                                     {{ $discussion->user->username }}
                                                 </a>
                                             </span>
