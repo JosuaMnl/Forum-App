@@ -19,7 +19,7 @@
                 </li>
                 <li class="nav-item">
                     <a class="nav-link text-nowrap {{ Route::currentRouteName() === '' ? 'active' : '' }}"
-                        aria-current="page" href="#">About Us</a>
+                        aria-current="page" href="{{ route('home') }}#about-us">About Us</a>
                 </li>
 
             </ul>
