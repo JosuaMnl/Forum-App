@@ -56,6 +56,9 @@ Route::namespace('App\Http\Controllers\Auth')->group(function() {
     Route::post('/logout', 'LoginController@logout')->name('auth.login.logout');
     Route::get('/sign-up', 'SignUpController@show')->name('auth.sign-up.show');
     Route::post('/sign-up', 'SignUpController@signUp')->name('auth.sign-up.sign-up');
+
+    Route::get('login/{provider}', 'SocialController@redirect');
+    Route::get('login/{provider}/callback', 'SocialController@Callback');
 });
 
 Route::namespace('App\Http\Controllers\User')->group(function () {

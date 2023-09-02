@@ -41,7 +41,10 @@
                                 <img src="{{ filter_var(auth()->user()->picture, FILTER_VALIDATE_URL) ? auth()->user()->picture : Storage::url(auth()->user()->picture) }}"
                                     alt="{{ auth()->user()->username }}" class="avatar rounded-circle">
                             </div>
-                            <span class="fw-bold">{{ auth()->user()->username }}</span>
+                            <span
+                                class="fw-bold">{{ Str::length(auth()->user()->username) > 5
+                                    ? Str::substr(auth()->user()->username, 0, 5) . '...'
+                                    : auth()->user()->username }}</span>
                         </a>
                         <ul class="dropdown-menu mt-2">
                             <li>
